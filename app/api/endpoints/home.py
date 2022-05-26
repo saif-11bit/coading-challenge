@@ -1,10 +1,9 @@
 from fastapi import APIRouter
-from utils.worker_tasks import create_task
+from utils.worker_tasks import load_csv_data
 router = APIRouter()
 
 @router.get("/")
 async def home():
     # a dummy task call
-    d = create_task.delay(1, 2, 3)
-    print(d)
+    d = load_csv_data.delay()
     return 'Hello World'
