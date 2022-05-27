@@ -1,6 +1,6 @@
 from uuid import UUID
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
 
 
 class SchoolBase(BaseModel):
@@ -14,3 +14,11 @@ class SchoolInDB(SchoolBase):
 
 class SchoolInResp(SchoolInDB):
     pass
+
+
+class SchoolCreation(SchoolBase):
+    pass
+
+class SchoolsInResp(BaseModel):
+    schools: List[SchoolInResp]
+    total_count: int

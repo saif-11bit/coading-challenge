@@ -26,6 +26,8 @@ async def find_gender_enrolled_by_id(_id: UUID) -> GenderEnrolledInResp:
 Gender Enrolled in DB
 '''
 async def find_gender_enrolled_in_db(
+    offset: int = 0,
+    limit: int = 10,
     _category_id: UUID = None,
     _school_id: UUID = None,
     _gender:GenderEnum = None,
@@ -33,17 +35,42 @@ async def find_gender_enrolled_in_db(
     query = GenderEnrolled.select()
     if _category_id:
         query = query.where(
-            Category.columns.id == _category_id
+            GenderEnrolled.columns.category_id == _category_id
         )
     if _school_id:
         query = query.where(
-            School.columns.id == _school_id
+            GenderEnrolled.columns.school_id == _school_id
+        )
+    if _gender:
+        query = query.where(
+            GenderEnrolled.columns.gender == _gender
+        )
+    query = query.offset(offset).limit(limit)
+    gender_enrolled = await database.fetch_all(query)
+    return gender_enrolled
+
+
+'''
+Gender Enrolled count in DB
+'''
+async def find_gender_enrolled_in_db_count(
+    _category_id: UUID = None,
+    _school_id: UUID = None,
+    _gender:GenderEnum = None,
+) -> List[GenderEnrolledInResp]:
+    query = GenderEnrolled.count()
+    if _category_id:
+        query = query.where(
+            GenderEnrolled.columns.category_id == _category_id
+        )
+    if _school_id:
+        query = query.where(
+            GenderEnrolled.columns.school_id == _school_id
         )
     if _gender:
         query = query.where(
             GenderEnrolled.columns.gender == _gender
         )
     
-    gender_enrolled = await database.fetch_all(query)
+    gender_enrolled = await database.execute(query)
     return gender_enrolled
-

@@ -1,6 +1,6 @@
 from uuid import UUID
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
 
 
 class TotalEnrolledBase(BaseModel):
@@ -15,3 +15,8 @@ class TotalEnrolledInDB(TotalEnrolledBase):
 
 class TotalEnrolledInResp(TotalEnrolledInDB):
     pass
+
+
+class TotalEnrollmentsInResp(BaseModel):
+    total_enrollments: List[TotalEnrolledInResp]
+    total_count: int

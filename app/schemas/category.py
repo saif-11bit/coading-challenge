@@ -1,6 +1,6 @@
 from uuid import UUID
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
 
 class CategoryBase(BaseModel):
     category_name: Optional[str]
@@ -12,3 +12,10 @@ class CategoryInDB(CategoryBase):
 
 class CategoryInResp(CategoryInDB):
     pass
+
+
+class CategoryCreation(CategoryBase):
+    pass
+
+class CategoriesInResp(BaseModel):
+    categories: List[CategoryInResp]

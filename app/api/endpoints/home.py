@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from utils.worker_tasks import load_csv_data
+
 router = APIRouter()
 
 @router.get("/")

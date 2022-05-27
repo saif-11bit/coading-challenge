@@ -1,7 +1,5 @@
 from application import database
 from models.total_enrolled import TotalEnrolled
-from models.category import Category
-from models.school import School
 from sqlalchemy import select
 from schemas.total_enrolled import (
     TotalEnrolledInDB,
@@ -25,6 +23,8 @@ async def find_total_enrolled_by_id(_id: UUID) -> TotalEnrolledInResp:
 find total enrolled in DB
 '''
 async def total_enrolled_in_db(
+    offset: int = 0,
+    limit: int = 10,
     _category_id: UUID = None,
     _school_id: UUID = None
 ) -> List[TotalEnrolledInResp]:
@@ -32,13 +32,34 @@ async def total_enrolled_in_db(
     
     if _category_id:
         query = query.where(
-            Category.columns.id == _category_id
+            TotalEnrolled.columns.category_id == _category_id
         )
     if _school_id:
         query = query.where(
-            School.columns.id == _school_id
+            TotalEnrolled.columns.school_id == _school_id
         )
-    
+    query = query.offset(offset).limit(limit)
     total_enrolled = await database.fetch_all(query)
     return total_enrolled
 
+
+'''
+find total enrolled in DB count
+'''
+async def total_enrolled_in_db_count(
+    _category_id: UUID = None,
+    _school_id: UUID = None
+) -> int:
+    query = TotalEnrolled.count()
+    
+    if _category_id:
+        query = query.where(
+            TotalEnrolled.columns.category_id == _category_id
+        )
+    if _school_id:
+        query = query.where(
+            TotalEnrolled.columns.school_id == _school_id
+        )
+    
+    count = await database.execute(query)
+    return count

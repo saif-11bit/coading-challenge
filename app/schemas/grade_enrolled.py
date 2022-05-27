@@ -1,6 +1,6 @@
 from uuid import UUID
 from pydantic import BaseModel
-from typing import Optional
+from typing import List, Optional
 from models.grade_enrolled import GradeEnum
 
 class GradeEnrolledBase(BaseModel):
@@ -16,3 +16,8 @@ class GradeEnrolledInDB(GradeEnrolledBase):
 
 class GradeEnrolledInResp(GradeEnrolledInDB):
     pass
+
+
+class GradeEnrollmentsInResp(BaseModel):
+    grade_enrollments: List[GradeEnrolledInResp]
+    total_count: int
