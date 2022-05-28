@@ -15,7 +15,8 @@ from crud.grade_enrolled import (
     
 )
 from models.grade_enrolled import GradeEnum
-
+from fastapi.encoders import jsonable_encoder
+from utils.chart import _create_chart
 router = APIRouter()
 
 
@@ -26,6 +27,7 @@ async def get_grade_enrollments_in_db(
     _category_id: UUID = None,
     _school_id: UUID = None,
     _grade:GradeEnum = None,
+    _chart:bool = None
 ):
     """
     Returns grade enrollment objects available in DB.
@@ -42,6 +44,9 @@ async def get_grade_enrollments_in_db(
         _school_id,
         _grade
     )
+    if _chart:
+        json_data = jsonable_encoder(grade_enrollments)
+        _create_chart(_type=_grade, json_data=json_data)
     return GradeEnrollmentsInResp(grade_enrollments=grade_enrollments, total_count=count)
 
 

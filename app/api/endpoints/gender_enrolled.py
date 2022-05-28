@@ -1,3 +1,4 @@
+from tkinter.messagebox import NO
 from fastapi import (
     APIRouter,
     HTTPException,
@@ -15,17 +16,20 @@ from crud.gender_enrolled import (
     find_gender_enrolled_in_db_count
 )
 from models.gender_enrolled import GenderEnum
-
+import pandas as pd
+from fastapi.encoders import jsonable_encoder
+from utils.chart import _create_chart
 router = APIRouter()
 
 
 @router.get("/", response_model=GenderEnrollmentsInResp)
 async def get_gender_enrollments_in_db(
-    offset: int = 0,
-    limit: int = 10,
+    offset: int = None,
+    limit: int = None,
     _category_id: UUID = None,
     _school_id: UUID = None,
     _gender:GenderEnum = None,
+    _chart: bool = None
 ):
     """
     Returns gender enrollment objects available in DB.
@@ -42,6 +46,10 @@ async def get_gender_enrollments_in_db(
         _school_id,
         _gender
     )
+
+    if _chart:
+        json_data = jsonable_encoder(gender_enrollments)
+        _create_chart(_type=_gender, json_data=json_data)
     return GenderEnrollmentsInResp(gender_enrollments=gender_enrollments, total_count=count)
 
 

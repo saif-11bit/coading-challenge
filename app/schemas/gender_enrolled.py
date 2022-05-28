@@ -8,7 +8,7 @@ class GenderEnrolledBase(BaseModel):
     school_id: Optional[UUID]
     gender: GenderEnum
     percent: Optional[str]
-    count: Optional[str]
+    count: Optional[int]
     
     
 class GenderEnrolledInDB(GenderEnrolledBase):

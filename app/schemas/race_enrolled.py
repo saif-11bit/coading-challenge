@@ -8,7 +8,7 @@ class RaceEnrolledBase(BaseModel):
     school_id: Optional[UUID]
     race: RaceEnum
     percent: Optional[str]
-    count: Optional[str]
+    count: Optional[float]
     
     
 class RaceEnrolledInDB(RaceEnrolledBase):

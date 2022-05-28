@@ -7,15 +7,10 @@ from .data_transaction import (
     transfer_grade_enrolled_data,
     transfer_race_enrolled_data
 )
-import time
-
-# a dummy task
-@app.task(name="create_task")
-def create_task(a,b,c):
-    time.sleep(a)
-    return b + c
-
-
+import pandas as pd
+from fastapi.encoders import jsonable_encoder
+import plotly.graph_objects as go
+from .chart import _create_chart
 '''
 Transfer data: csv -> DB
 '''
@@ -27,3 +22,9 @@ def load_csv_data():
     transfer_gender_enrolled_data()
     transfer_grade_enrolled_data()
     transfer_race_enrolled_data()
+    
+    
+    
+@app.task(name="create_chart")
+def create_chart(_type, json_data):
+        _create_chart(_type, json_data)

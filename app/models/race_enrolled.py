@@ -3,7 +3,8 @@ from sqlalchemy import (
     Table,
     Column,
     String,
-    ForeignKey
+    ForeignKey,
+    Float
 )
 from sqlalchemy.dialects.postgresql import (
     UUID,ENUM
@@ -49,5 +50,5 @@ RaceEnrolled = Table(
         nullable=False
     ),
     Column("percent", String, nullable=True),
-    Column("count", String, nullable=True)
+    Column("count", Float, nullable=True)
 )

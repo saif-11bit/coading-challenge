@@ -1,5 +1,6 @@
 from application import metadata
 from sqlalchemy import (
+    Float,
     Table,
     Column,
     String,
@@ -53,5 +54,5 @@ GradeEnrolled = Table(
             ),
         nullable=False
     ),
-    Column("count", String, nullable=True)
+    Column("count", Float, nullable=True)
 )

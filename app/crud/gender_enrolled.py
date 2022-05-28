@@ -26,8 +26,8 @@ async def find_gender_enrolled_by_id(_id: UUID) -> GenderEnrolledInResp:
 Gender Enrolled in DB
 '''
 async def find_gender_enrolled_in_db(
-    offset: int = 0,
-    limit: int = 10,
+    offset: int = None,
+    limit: int = None,
     _category_id: UUID = None,
     _school_id: UUID = None,
     _gender:GenderEnum = None,

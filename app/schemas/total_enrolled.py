@@ -6,7 +6,7 @@ from typing import Optional, List
 class TotalEnrolledBase(BaseModel):
     category_id: Optional[UUID]
     school_id: Optional[UUID]
-    count: Optional[str]
+    count: Optional[float]
     
     
 class TotalEnrolledInDB(TotalEnrolledBase):

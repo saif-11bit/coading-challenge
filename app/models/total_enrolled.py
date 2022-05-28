@@ -3,7 +3,8 @@ from sqlalchemy import (
     Table,
     Column,
     String,
-    ForeignKey
+    ForeignKey,
+    Float
 )
 from sqlalchemy.dialects.postgresql import (
     UUID
@@ -31,5 +32,5 @@ TotalEnrolled = Table(
         ),
         nullable=True
     ),
-    Column("count", String, nullable=True)
+    Column("count", Float, nullable=True)
 )

@@ -7,7 +7,7 @@ class GradeEnrolledBase(BaseModel):
     category_id: Optional[UUID]
     school_id: Optional[UUID]
     grade: GradeEnum
-    count: Optional[str]
+    count: Optional[float]
     
     
 class GradeEnrolledInDB(GradeEnrolledBase):
