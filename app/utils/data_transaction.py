@@ -1,10 +1,14 @@
 from sqlalchemy import create_engine
+import sys
+import pathlib
+sys.path.extend([str(pathlib.Path(__file__).parent.parent.absolute())])
 from models.gender_enrolled import GenderEnrolled, GenderEnum
 from models.grade_enrolled import GradeEnrolled, GradeEnum
 from models.race_enrolled import RaceEnrolled, RaceEnum
 from models.category import Category
 from models.school import School
 from models.total_enrolled import TotalEnrolled
+from models.chart import ChartEnrolled
 import pandas as pd
 from uuid import uuid4
 from dotenv import load_dotenv
@@ -56,7 +60,7 @@ Transfer School data from csv to DB
 '''
 def transfer_school_data():
     with engine.begin() as connection:
-        filename = 'utils/csv_data/schools_data.csv'
+        filename = 'app/utils/csv_data/schools_data.csv'
         schools = pd.read_csv(filename)
         for dbn, schl_n in schools.itertuples(index=False):
             with engine.begin() as connection:
@@ -133,7 +137,7 @@ Transfer Race Enrolled data from csv to DB
 '''
 def transfer_race_enrolled_data():
     with engine.begin() as connection:
-        filename = 'utils/csv_data/race_enrolled_data.csv'
+        filename = 'app/utils/csv_data/race_enrolled_data.csv'
         grade_enrolled = pd.read_csv(filename)
         for dbn, cat, asian_c, asian_per, black_c, black_per, hispanic_c, hispanic_per  in grade_enrolled.itertuples(index=False):
             school = find_school_id_by_dbn(dbn)
@@ -151,3 +155,12 @@ def transfer_race_enrolled_data():
                         race_c = hispanic_c if hispanic_c.isnumeric() else None
                         race_per = hispanic_per
                     connection.execute(RaceEnrolled.insert(),{"id":str(uuid4()), "category_id":category,"school_id":school, "race": race, "percent":race_per,"count": race_c})
+
+
+
+'''
+Insert Chart Data in Chart DB
+'''
+def add_chart_data(chart_uuid, chart_data, enroll_type):
+    with engine.begin() as connection:
+        connection.execute(ChartEnrolled.insert(),{"id":str(chart_uuid), "enrollment_type":enroll_type,"mean_data":chart_data})

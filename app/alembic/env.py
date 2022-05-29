@@ -15,7 +15,7 @@ from models.gender_enrolled import GenderEnrolled
 from models.grade_enrolled import GradeEnrolled
 from models.total_enrolled import TotalEnrolled
 from models.race_enrolled import RaceEnrolled
-
+from models.chart import ChartEnrolled
 load_dotenv(verbose=True)
 
 DB_URI=os.environ["DB_URI"]

@@ -6,7 +6,8 @@ from api.endpoints import (
     total_enrolled,
     gender_enrolled,
     grade_enrolled,
-    race_enrolled
+    race_enrolled,
+    chart
 )
 
 
@@ -53,3 +54,10 @@ api_router.include_router(
     prefix="/race_enrolled",
     tags=["race_enrolled"]
 )
+
+api_router.include_router(
+    chart.router,
+    prefix="/chart",
+    tags=["chart"]
+)
+

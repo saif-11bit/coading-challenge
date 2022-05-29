@@ -16,7 +16,7 @@ from crud.race_enrolled import (
 )
 from models.race_enrolled import RaceEnum
 from fastapi.encoders import jsonable_encoder
-from utils.chart import _create_chart
+from utils.worker_tasks import create_chart
 
 router = APIRouter()
 
@@ -32,6 +32,7 @@ async def get_race_enrollments_in_db(
 ):
     """
     Returns race enrollment objects available in DB.
+    If _chart: True, then creates chart of _category_id and _race
     """
     race_enrollments = await find_race_enrolled_in_db(
         offset,
@@ -47,7 +48,8 @@ async def get_race_enrollments_in_db(
     )
     if _chart:
         json_data = jsonable_encoder(race_enrollments)
-        _create_chart(_type=_race, json_data=json_data)
+        chart_uuid = uuid4()
+        task = create_chart.delay(chart_uuid,_race, json_data)
     return RaceEnrollmentsInResp(race_enrollments=race_enrollments, total_count=count)
 
 

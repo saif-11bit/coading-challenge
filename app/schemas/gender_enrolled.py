@@ -20,5 +20,6 @@ class GenderEnrolledInResp(GenderEnrolledInDB):
 
 
 class GenderEnrollmentsInResp(BaseModel):
+    chart_id: Optional[UUID]
     gender_enrollments: List[GenderEnrolledInResp]
     total_count: int

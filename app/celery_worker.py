@@ -1,3 +1,6 @@
+import sys
+import pathlib
+sys.path.extend([str(pathlib.Path(__file__).parent.parent.absolute())])
 import os
 from celery import Celery
 from dotenv import load_dotenv
@@ -6,8 +9,8 @@ load_dotenv(verbose=True)
 
 CELERY_BROKER_URL=os.environ["CELERY_BROKER_URL"]
 
-app = Celery()
-app.conf.broker_url = CELERY_BROKER_URL
-app.conf.result_backend = CELERY_BROKER_URL
+celery = Celery()
+celery.conf.broker_url = CELERY_BROKER_URL
+celery.conf.result_backend = CELERY_BROKER_URL
 
-app.autodiscover_tasks(['utils.worker_tasks.py',], force=True)
+celery.autodiscover_tasks(['app.utils.worker_tasks.py'], force=True)

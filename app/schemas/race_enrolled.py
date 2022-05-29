@@ -20,5 +20,6 @@ class RaceEnrolledInResp(RaceEnrolledInDB):
 
 
 class RaceEnrollmentsInResp(BaseModel):
+    chart_id: Optional[int]
     race_enrollments: List[RaceEnrolledInResp]
     total_count: int

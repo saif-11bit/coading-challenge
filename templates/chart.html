@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart</title>
+    <style>
+        .content{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <img id="img" src="" alt="">
+    </div>
+
+
+    <script>
+        //get id of chart from url path
+        const path = window.location.pathname.split('/')[2]
+        const image_path = `{{ url_for('static', path='/${path}.png') }}`
+        document.getElementById("img").src=image_path;
+    </script>
+
+</body>
+</html>

@@ -19,5 +19,6 @@ class GradeEnrolledInResp(GradeEnrolledInDB):
 
 
 class GradeEnrollmentsInResp(BaseModel):
+    chart_id: Optional[int]
     grade_enrollments: List[GradeEnrolledInResp]
     total_count: int
