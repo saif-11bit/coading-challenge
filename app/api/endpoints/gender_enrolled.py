@@ -24,8 +24,8 @@ router = APIRouter()
 
 @router.get("/", response_model=GenderEnrollmentsInResp)
 async def get_gender_enrollments_in_db(
-    offset: int = None,
-    limit: int = None,
+    offset: int = 0,
+    limit: int = 10,
     _category_id: UUID = None,
     _school_id: UUID = None,
     _gender:GenderEnum = None,

@@ -47,7 +47,7 @@ Transfer Category data from csv to DB
 '''
 def transfer_category_data():
     with engine.begin() as connection:
-        filename = 'utils/csv_data/category_data.csv'
+        filename = 'app/csv_data/category_data.csv'
         categories = pd.read_csv(filename)
         for categ in categories.itertuples(index=False):
             with engine.begin() as connection:
@@ -60,7 +60,7 @@ Transfer School data from csv to DB
 '''
 def transfer_school_data():
     with engine.begin() as connection:
-        filename = 'app/utils/csv_data/schools_data.csv'
+        filename = 'app/csv_data/schools_data.csv'
         schools = pd.read_csv(filename)
         for dbn, schl_n in schools.itertuples(index=False):
             with engine.begin() as connection:
@@ -73,7 +73,7 @@ Transfer Total Enrolled data from csv to DB
 '''
 def transfer_total_enrolled_data():
     with engine.begin() as connection:
-        filename = 'utils/csv_data/total_enrolled_data.csv'
+        filename = 'app/csv_data/total_enrolled_data.csv'
         total_enrolled = pd.read_csv(filename)
         for dbn, cat, ttl in total_enrolled.itertuples(index=False):
             school = find_school_id_by_dbn(dbn)
@@ -89,7 +89,7 @@ Transfer Genders Enrolled data from csv to DB
 '''
 def transfer_gender_enrolled_data():
     with engine.begin() as connection:
-        filename = 'utils/csv_data/gender_enrolled_data.csv'
+        filename = 'app/csv_data/gender_enrolled_data.csv'
         gender_enrolled = pd.read_csv(filename)
         for dbn, cat, female_c, female_per,male_c, male_per in gender_enrolled.itertuples(index=False):
             school = find_school_id_by_dbn(dbn)
@@ -108,7 +108,7 @@ Transfer Grade Enrolled data from csv to DB
 '''
 def transfer_grade_enrolled_data():
     with engine.begin() as connection:
-        filename = 'utils/csv_data/grade_enrolled_data.csv'
+        filename = 'app/csv_data/grade_enrolled_data.csv'
         grade_enrolled = pd.read_csv(filename)
         for dbn, cat, grade_k, grade_1, grade_2 ,grade_3, grade_4, grade_5 in grade_enrolled.itertuples(index=False):
             school = find_school_id_by_dbn(dbn)
@@ -137,7 +137,7 @@ Transfer Race Enrolled data from csv to DB
 '''
 def transfer_race_enrolled_data():
     with engine.begin() as connection:
-        filename = 'app/utils/csv_data/race_enrolled_data.csv'
+        filename = 'app/csv_data/race_enrolled_data.csv'
         grade_enrolled = pd.read_csv(filename)
         for dbn, cat, asian_c, asian_per, black_c, black_per, hispanic_c, hispanic_per  in grade_enrolled.itertuples(index=False):
             school = find_school_id_by_dbn(dbn)

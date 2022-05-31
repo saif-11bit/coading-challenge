@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from api.endpoints import (
-    home,
+    transfer_csv_to_db,
     category,
     school,
     total_enrolled,
@@ -14,9 +14,9 @@ from api.endpoints import (
 api_router = APIRouter()
 
 api_router.include_router(
-    home.router,
-    prefix="/home",
-    tags=["home"]
+    transfer_csv_to_db.router,
+    prefix="/transfer_csv_data",
+    tags=["transfer_csv_to_db"]
 )
 
 api_router.include_router(
