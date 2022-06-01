@@ -1,6 +1,15 @@
 # coding-challenge
 Coding Challenge
 
+## How to use it
+1. Run this application
+2. Go to: http://localhost:8000/docs
+3. Transfer data from csv to db
+4. Try to run some filter
+5. Select True in Chart option
+6. Chart ID will be generated
+7. Goto /charts/{chart_id} to see the charts
+
 ## project description
 Your project must be done accordingly to microservice principle. Create 4 microservices: PostgreSQL Database, Redis, Celery Worker and REST API server(based on FastAPI). Your project must be runnable with docker-compose.
 
